@@ -33,6 +33,24 @@ namespace Proyecto_DiscosV1
                 //Configuramos el comando, o sea configuramos la acción a realizar en la base de datos
                 comando.CommandType = System.Data.CommandType.Text;
                 comando.CommandText = "Select D.Titulo as Album, D.UrlImagenTapa, D.Artista From DISCOS D;";
+                //asignamos el comando a la conexión para que sepa a donde se tiene que conectar
+                comando.Connection = conexion;
+                //Lo siguiente es abrir la conexion
+                conexion.Open();
+                //Lo siguiente es realizar la lectura y capturar ese objeto que nos devuelve la lectura en el lector
+                lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Disco aux = new Disco();
+                    aux.Artista = (string)lector["Artista"];
+                    aux.Album = (string)lector["Album"];
+                    aux.UrlImagenTapa = (string)lector["UrlImagenTapa"];
+                    lista.Add(aux);
+
+                }
+
+                conexion.Close();
 
 
                 return lista;

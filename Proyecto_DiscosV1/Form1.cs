@@ -12,6 +12,7 @@ namespace Proyecto_DiscosV1
 {
     public partial class Form1 : Form
     {
+        private List<Disco> listaDisco;  //creo el atributo este para poder usarlo de forma mas cómoda 
         public Form1()
         {
             InitializeComponent();
@@ -23,12 +24,34 @@ namespace Proyecto_DiscosV1
             DiscoServices discoServices = new DiscoServices();
             //Ahora lo que nos genera ese servicio, debemos traerlo para acá y mandarlo a la interfaz
             //Creamos una lista y la mandamos a los controladores del form
-            List<Disco> discos = discoServices.listar();
+            listaDisco = discoServices.listar();
 
             //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
-            dgvAlbum.DataSource = discos;
+
+            dgvAlbum.DataSource = listaDisco;
+            dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
+            dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
+
+            try
+            {
+                pbAlbum.LoadAsync(listaDisco[0].UrlImagenTapa);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
         }
+
+        //evento para que cambie de imagen seleccionando un album
+        private void dgvAlbum_SelectionChanged(object sender, EventArgs e)
+        {
+            Disco seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
+            pbAlbum.Load(seleccionado.UrlImagenTapa);
+
+        }
+
+        //acá voy a hacer un método para seleccionar la imagen de manera separada, encapsulada  
     }
 }

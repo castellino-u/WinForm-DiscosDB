@@ -36,9 +36,11 @@
             // 
             // pbAlbum
             // 
+            this.pbAlbum.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbAlbum.Location = new System.Drawing.Point(287, 56);
             this.pbAlbum.Name = "pbAlbum";
             this.pbAlbum.Size = new System.Drawing.Size(293, 234);
+            this.pbAlbum.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAlbum.TabIndex = 0;
             this.pbAlbum.TabStop = false;
             // 
@@ -49,6 +51,7 @@
             this.dgvAlbum.Name = "dgvAlbum";
             this.dgvAlbum.Size = new System.Drawing.Size(574, 148);
             this.dgvAlbum.TabIndex = 1;
+            this.dgvAlbum.SelectionChanged += new System.EventHandler(this.dgvAlbum_SelectionChanged);
             // 
             // Form1
             // 

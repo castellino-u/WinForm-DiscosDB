@@ -11,6 +11,8 @@ namespace Proyecto_DiscosV1
     {
         //consulta sql inicial: 
         //Select D.Titulo as Album, D.UrlImagenTapa, D.Artista From DISCOS D;
+        //Consulta nueva: Select D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;
+
 
 
 
@@ -32,7 +34,7 @@ namespace Proyecto_DiscosV1
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; Database=DISCOS_DB; Integrated Security=true";
                 //Configuramos el comando, o sea configuramos la acción a realizar en la base de datos
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select D.Titulo as Album, D.UrlImagenTapa, D.Artista From DISCOS D;";
+                comando.CommandText = "Select D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;";
                 //asignamos el comando a la conexión para que sepa a donde se tiene que conectar
                 comando.Connection = conexion;
                 //Lo siguiente es abrir la conexion
@@ -46,7 +48,18 @@ namespace Proyecto_DiscosV1
                     aux.Artista = (string)lector["Artista"];
                     aux.Album = (string)lector["Album"];
                     aux.UrlImagenTapa = (string)lector["UrlImagenTapa"];
+                    aux.CantidadCanciones = (int)lector["CantidadCanciones"];
+                    //primero creo el objeto  vacio de la propertie de disco 
+                    aux.Formato = new Edicion();
+                    //luego lo relleno al objeto
+                    aux.Formato.Descripcion = (string)lector["Edicion"];
+
+                    aux.Genero = new Estilo();
+                    aux.Genero.Descripcion = (string)lector["Genero"];
+
+
                     lista.Add(aux);
+
 
                 }
 

@@ -32,14 +32,8 @@ namespace Proyecto_DiscosV1
             dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
             dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
 
-            try
-            {
-                pbAlbum.LoadAsync(listaDisco[0].UrlImagenTapa);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            cargarImagen(listaDisco[0].UrlImagenTapa);
+           
 
 
         }
@@ -48,10 +42,25 @@ namespace Proyecto_DiscosV1
         private void dgvAlbum_SelectionChanged(object sender, EventArgs e)
         {
             Disco seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
-            pbAlbum.Load(seleccionado.UrlImagenTapa);
-
+            //pbAlbum.Load(seleccionado.UrlImagenTapa);
+            cargarImagen(seleccionado.UrlImagenTapa);
         }
 
         //acá voy a hacer un método para seleccionar la imagen de manera separada, encapsulada  
+        //modularizamos un método repetido
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbAlbum.Load(imagen);
+            }
+            catch (Exception)
+            {
+                pbAlbum.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
+                throw;
+            }
+        }
+
+      
     }
 }

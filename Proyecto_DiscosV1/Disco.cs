@@ -14,7 +14,10 @@ namespace Proyecto_DiscosV1
 
         public string UrlImagenTapa { get; set; }
 
+        public int CantidadCanciones { get; set; }
 
+        public  Estilo Genero { get; set; }
+        public Edicion Formato { get; set; }
 
     }
 }

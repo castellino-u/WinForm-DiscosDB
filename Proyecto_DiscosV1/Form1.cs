@@ -30,10 +30,19 @@ namespace Proyecto_DiscosV1
 
             dgvAlbum.DataSource = listaDisco;
             dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
+            //ocultamos las nuevas columnas
+            dgvAlbum.Columns["CantidadCanciones"].Visible=false;
+            dgvAlbum.Columns["Genero"].Visible = false;
+            dgvAlbum.Columns["Formato"].Visible = false;
+
             dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
 
             cargarImagen(listaDisco[0].UrlImagenTapa);
-           
+
+            //Acá cargamos los labels y después repetimos el paso en el selectedChange
+            lblCantCanciones.Text = listaDisco[0].CantidadCanciones.ToString();
+            lblFormato.Text = listaDisco[0].Formato.Descripcion;
+            lblGenero.Text = listaDisco[0].Genero.Descripcion;
 
 
         }
@@ -44,6 +53,10 @@ namespace Proyecto_DiscosV1
             Disco seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
             //pbAlbum.Load(seleccionado.UrlImagenTapa);
             cargarImagen(seleccionado.UrlImagenTapa);
+            //labels 
+            lblCantCanciones.Text = seleccionado.CantidadCanciones.ToString();
+            lblFormato.Text = seleccionado.Formato.Descripcion;
+            lblGenero.Text = seleccionado.Genero.Descripcion;
         }
 
         //acá voy a hacer un método para seleccionar la imagen de manera separada, encapsulada  

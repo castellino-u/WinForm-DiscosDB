@@ -31,8 +31,12 @@
             this.pbAlbum = new System.Windows.Forms.PictureBox();
             this.dgvAlbum = new System.Windows.Forms.DataGridView();
             this.lblGenero = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblCantCanciones = new System.Windows.Forms.Label();
+            this.lblFormato = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblTituloGenero = new System.Windows.Forms.Label();
+            this.lblTituloCantCanciones = new System.Windows.Forms.Label();
+            this.lblTituloFormato = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbum)).BeginInit();
             this.SuspendLayout();
@@ -59,37 +63,77 @@
             // lblGenero
             // 
             this.lblGenero.AutoSize = true;
-            this.lblGenero.Location = new System.Drawing.Point(510, 101);
+            this.lblGenero.Location = new System.Drawing.Point(657, 179);
             this.lblGenero.Name = "lblGenero";
             this.lblGenero.Size = new System.Drawing.Size(35, 13);
             this.lblGenero.TabIndex = 2;
             this.lblGenero.Text = "label1";
             // 
-            // label2
+            // lblCantCanciones
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(510, 148);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
+            this.lblCantCanciones.AutoSize = true;
+            this.lblCantCanciones.Location = new System.Drawing.Point(657, 103);
+            this.lblCantCanciones.Name = "lblCantCanciones";
+            this.lblCantCanciones.Size = new System.Drawing.Size(35, 13);
+            this.lblCantCanciones.TabIndex = 3;
+            this.lblCantCanciones.Text = "label2";
             // 
-            // label3
+            // lblFormato
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(510, 188);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "label3";
+            this.lblFormato.AutoSize = true;
+            this.lblFormato.Location = new System.Drawing.Point(657, 146);
+            this.lblFormato.Name = "lblFormato";
+            this.lblFormato.Size = new System.Drawing.Size(35, 13);
+            this.lblFormato.TabIndex = 4;
+            this.lblFormato.Text = "label3";
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Location = new System.Drawing.Point(502, 58);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(84, 13);
+            this.lblTitulo.TabIndex = 5;
+            this.lblTitulo.Text = "Características: ";
+            // 
+            // lblTituloGenero
+            // 
+            this.lblTituloGenero.AutoSize = true;
+            this.lblTituloGenero.Location = new System.Drawing.Point(505, 179);
+            this.lblTituloGenero.Name = "lblTituloGenero";
+            this.lblTituloGenero.Size = new System.Drawing.Size(48, 13);
+            this.lblTituloGenero.TabIndex = 6;
+            this.lblTituloGenero.Text = "Género: ";
+            // 
+            // lblTituloCantCanciones
+            // 
+            this.lblTituloCantCanciones.AutoSize = true;
+            this.lblTituloCantCanciones.Location = new System.Drawing.Point(502, 103);
+            this.lblTituloCantCanciones.Name = "lblTituloCantCanciones";
+            this.lblTituloCantCanciones.Size = new System.Drawing.Size(123, 13);
+            this.lblTituloCantCanciones.TabIndex = 7;
+            this.lblTituloCantCanciones.Text = "Cantidad de Canciones: ";
+            // 
+            // lblTituloFormato
+            // 
+            this.lblTituloFormato.AutoSize = true;
+            this.lblTituloFormato.Location = new System.Drawing.Point(502, 146);
+            this.lblTituloFormato.Name = "lblTituloFormato";
+            this.lblTituloFormato.Size = new System.Drawing.Size(51, 13);
+            this.lblTituloFormato.TabIndex = 8;
+            this.lblTituloFormato.Text = "Formato: ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 498);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblTituloFormato);
+            this.Controls.Add(this.lblTituloCantCanciones);
+            this.Controls.Add(this.lblTituloGenero);
+            this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.lblFormato);
+            this.Controls.Add(this.lblCantCanciones);
             this.Controls.Add(this.lblGenero);
             this.Controls.Add(this.dgvAlbum);
             this.Controls.Add(this.pbAlbum);
@@ -109,8 +153,12 @@
         private System.Windows.Forms.PictureBox pbAlbum;
         private System.Windows.Forms.DataGridView dgvAlbum;
         private System.Windows.Forms.Label lblGenero;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCantCanciones;
+        private System.Windows.Forms.Label lblFormato;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblTituloGenero;
+        private System.Windows.Forms.Label lblTituloCantCanciones;
+        private System.Windows.Forms.Label lblTituloFormato;
     }
 }
 

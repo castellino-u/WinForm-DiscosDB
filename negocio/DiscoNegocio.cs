@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using dominio;
 
-namespace Proyecto_DiscosV1
+namespace negocio
 {
-    internal class DiscoServices
+    public class DiscoNegocio
     {
         //consulta sql inicial: 
         //Select D.Titulo as Album, D.UrlImagenTapa, D.Artista From DISCOS D;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_DiscosV1
+namespace dominio
 {
-    internal class Disco
+    public class Disco
     {
         public string Artista { get; set; }
 

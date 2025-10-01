@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using negocio;
+using dominio;
 
 namespace Proyecto_DiscosV1
 {
@@ -21,10 +23,10 @@ namespace Proyecto_DiscosV1
         private void Form1_Load(object sender, EventArgs e)
         {
             //generamos la instancia de mi clase contenedora de los métodos para llamar a la database
-            DiscoServices discoServices = new DiscoServices();
+            DiscoNegocio discoNegocio = new DiscoNegocio();
             //Ahora lo que nos genera ese servicio, debemos traerlo para acá y mandarlo a la interfaz
             //Creamos una lista y la mandamos a los controladores del form
-            listaDisco = discoServices.listar();
+            listaDisco = discoNegocio.listar();
 
             //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
 

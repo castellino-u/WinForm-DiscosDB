@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using negocio;
 using dominio;
 
-namespace Proyecto_DiscosV1
+namespace winform_app
 {
     public partial class Form1 : Form
     {

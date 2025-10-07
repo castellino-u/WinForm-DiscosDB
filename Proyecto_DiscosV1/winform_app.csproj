@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EBA6B7DE-C576-445B-82D3-7F073DEB0CE1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Proyecto_DiscosV1</RootNamespace>
-    <AssemblyName>Proyecto_DiscosV1</AssemblyName>
+    <RootNamespace>winform_app</RootNamespace>
+    <AssemblyName>winform_app</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

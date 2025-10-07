@@ -1,4 +1,6 @@
-﻿namespace Proyecto_DiscosV1
+﻿using System.Windows.Forms;
+
+namespace winform_app
 {
     partial class Form1
     {

@@ -35,7 +35,7 @@ namespace negocio
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; Database=DISCOS_DB; Integrated Security=true";
                 //Configuramos el comando, o sea configuramos la acción a realizar en la base de datos
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;";
+                comando.CommandText = "Select D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;\r\n\r\n";
                 //asignamos el comando a la conexión para que sepa a donde se tiene que conectar
                 comando.Connection = conexion;
                 //Lo siguiente es abrir la conexion
@@ -46,6 +46,7 @@ namespace negocio
                 while (lector.Read())
                 {
                     Disco aux = new Disco();
+                    aux.Id = (int)lector["Id"];
                     aux.Artista = (string)lector["Artista"];
                     aux.Album = (string)lector["Album"];
                     aux.UrlImagenTapa = (string)lector["UrlImagenTapa"];
@@ -53,17 +54,20 @@ namespace negocio
                     //primero creo el objeto  vacio de la propertie de disco 
                     aux.Formato = new Edicion();
                     //luego lo relleno al objeto
+                    aux.Formato.Id = (int)lector["IdTipoEdicion"];
                     aux.Formato.Descripcion = (string)lector["Edicion"];
 
                     aux.Genero = new Estilo();
+                    aux.Genero.Id = (int)lector["IdEstilo"];
                     aux.Genero.Descripcion = (string)lector["Genero"];
 
+                    aux.FechaLanzamiento = (DateTime)lector["FechaLanzamiento"];
 
                     lista.Add(aux);
 
 
                 }
-
+                //lector.Close();
                 conexion.Close();
 
 
@@ -74,6 +78,37 @@ namespace negocio
 
                 throw ex;
             }
+        }
+
+
+        public void agregar( Disco disc)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("insert into DISCOS(Titulo, FechaLanzamiento, CantidadCanciones, UrlImagenTapa, IdEstilo, IdTipoEdicion, Artista) values ( @titulo , @fecha, @cantCanciones, @urlImagenTapa , @IdEstilo, @IdTipoEdicion, @Artista);");
+                datos.setearParametros("@titulo", disc.Album );
+                datos.setearParametros("@fecha", disc.FechaLanzamiento );
+                datos.setearParametros("@cantCanciones", disc.CantidadCanciones);
+                datos.setearParametros("@urlImagenTapa", disc.UrlImagenTapa );
+                datos.setearParametros("@IdEstilo", disc.Genero.Id );
+                datos.setearParametros("@IdTipoEdicion", disc.Formato.Id );
+                datos.setearParametros("@Artista", disc.Artista );
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
         }
 
 

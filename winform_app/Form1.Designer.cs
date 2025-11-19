@@ -39,6 +39,7 @@ namespace winform_app
             this.lblTituloGenero = new System.Windows.Forms.Label();
             this.lblTituloCantCanciones = new System.Windows.Forms.Label();
             this.lblTituloFormato = new System.Windows.Forms.Label();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbum)).BeginInit();
             this.SuspendLayout();
@@ -125,11 +126,22 @@ namespace winform_app
             this.lblTituloFormato.TabIndex = 8;
             this.lblTituloFormato.Text = "Formato: ";
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(760, 308);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(117, 41);
+            this.btnAgregar.TabIndex = 9;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 498);
+            this.ClientSize = new System.Drawing.Size(932, 548);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblTituloFormato);
             this.Controls.Add(this.lblTituloCantCanciones);
             this.Controls.Add(this.lblTituloGenero);
@@ -161,6 +173,7 @@ namespace winform_app
         private System.Windows.Forms.Label lblTituloGenero;
         private System.Windows.Forms.Label lblTituloCantCanciones;
         private System.Windows.Forms.Label lblTituloFormato;
+        private Button btnAgregar;
     }
 }
 

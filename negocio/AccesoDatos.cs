@@ -60,6 +60,30 @@ namespace negocio
 
         }
 
+        //Método para agregar disco a la base de datos
+
+        public void ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery(); 
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void setearParametros(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+
+        }
+
         //Cerrar la conexión
 
         public void cerrarConexion()

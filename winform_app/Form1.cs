@@ -22,29 +22,7 @@ namespace winform_app
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //generamos la instancia de mi clase contenedora de los métodos para llamar a la database
-            DiscoNegocio discoNegocio = new DiscoNegocio();
-            //Ahora lo que nos genera ese servicio, debemos traerlo para acá y mandarlo a la interfaz
-            //Creamos una lista y la mandamos a los controladores del form
-            listaDisco = discoNegocio.listar();
-
-            //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
-
-            dgvAlbum.DataSource = listaDisco;
-            dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
-            //ocultamos las nuevas columnas
-            dgvAlbum.Columns["CantidadCanciones"].Visible=false;
-            dgvAlbum.Columns["Genero"].Visible = false;
-            dgvAlbum.Columns["Formato"].Visible = false;
-
-            dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
-
-            cargarImagen(listaDisco[0].UrlImagenTapa);
-
-            //Acá cargamos los labels y después repetimos el paso en el selectedChange
-            lblCantCanciones.Text = listaDisco[0].CantidadCanciones.ToString();
-            lblFormato.Text = listaDisco[0].Formato.Descripcion;
-            lblGenero.Text = listaDisco[0].Genero.Descripcion;
+            cargarDatos();
 
 
         }
@@ -72,10 +50,41 @@ namespace winform_app
             catch (Exception)
             {
                 pbAlbum.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
-                throw;
+                
             }
         }
 
-      
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaDisco alta = new frmAltaDisco();
+            
+            alta.ShowDialog();
+            cargarDatos();
+
+        }
+
+        private void cargarDatos()
+        {
+            //generamos la instancia de mi clase contenedora de los métodos para llamar a la database
+            DiscoNegocio discoNegocio = new DiscoNegocio();
+            //Ahora lo que nos genera ese servicio, debemos traerlo para acá y mandarlo a la interfaz
+            //Creamos una lista y la mandamos a los controladores del form
+            listaDisco = discoNegocio.listar();
+
+            //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
+
+            dgvAlbum.DataSource = listaDisco;
+            dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
+            //ocultamos las nuevas columnas
+            dgvAlbum.Columns["CantidadCanciones"].Visible = false;
+            dgvAlbum.Columns["Genero"].Visible = false;
+            dgvAlbum.Columns["Formato"].Visible = false;
+
+            dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
+
+            cargarImagen(listaDisco[0].UrlImagenTapa);
+
+            
+        }
     }
 }

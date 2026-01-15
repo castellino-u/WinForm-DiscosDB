@@ -28,7 +28,7 @@ namespace negocio
             //configuración de la consulta. Para eso de claramos objetos de la librería sqlclient
             SqlConnection conexion = new SqlConnection();
             SqlCommand comando = new SqlCommand();
-            SqlDataReader lector; 
+            SqlDataReader lector;
             try
             {
                 //Vamos a configurar la cadena de conexión 
@@ -68,7 +68,7 @@ namespace negocio
                     {
                         aux.Formato.Descripcion = (string)lector["Edicion"];
                     }
-                    
+
                     aux.Genero = new Estilo();
 
                     if (!(lector["IdEstilo"] is DBNull))
@@ -102,20 +102,20 @@ namespace negocio
         }
 
 
-        public void agregar( Disco disc)
+        public void agregar(Disco disc)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 datos.setearConsulta("insert into DISCOS(Titulo, FechaLanzamiento, CantidadCanciones, UrlImagenTapa, IdEstilo, IdTipoEdicion, Artista) values ( @titulo , @fecha, @cantCanciones, @urlImagenTapa , @IdEstilo, @IdTipoEdicion, @Artista);");
-                datos.setearParametros("@titulo", disc.Album );
-                datos.setearParametros("@fecha", disc.FechaLanzamiento );
+                datos.setearParametros("@titulo", disc.Album);
+                datos.setearParametros("@fecha", disc.FechaLanzamiento);
                 datos.setearParametros("@cantCanciones", disc.CantidadCanciones);
-                datos.setearParametros("@urlImagenTapa", disc.UrlImagenTapa );
-                datos.setearParametros("@IdEstilo", disc.Genero.Id );
-                datos.setearParametros("@IdTipoEdicion", disc.Formato.Id );
-                datos.setearParametros("@Artista", disc.Artista );
+                datos.setearParametros("@urlImagenTapa", disc.UrlImagenTapa);
+                datos.setearParametros("@IdEstilo", disc.Genero.Id);
+                datos.setearParametros("@IdTipoEdicion", disc.Formato.Id);
+                datos.setearParametros("@Artista", disc.Artista);
 
                 datos.ejecutarAccion();
 
@@ -155,12 +155,34 @@ namespace negocio
 
                 throw ex;
             }
-            finally 
+            finally
             {
                 datos.cerrarConexion();
             }
 
         }
 
+        public void eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("delete from DISCOS where Id = @id;");
+
+                datos.setearParametros("@id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }

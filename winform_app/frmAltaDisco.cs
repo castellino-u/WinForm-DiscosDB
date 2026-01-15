@@ -43,7 +43,9 @@ namespace winform_app
             //capturamos los datos y los mandamos a la base de datos
             try
             { 
-                if(disco == null) { Disco disco = new Disco();}
+                if(disco == null) { 
+                    disco = new Disco();
+                }
                 
                 disco.Artista = txtArtista.Text;
                 disco.Album = txtTitulo.Text;

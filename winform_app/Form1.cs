@@ -98,5 +98,30 @@ namespace winform_app
             cargarDatos();
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Disco aux = new Disco();
+            try
+            {
+                DialogResult resultado = MessageBox.Show("¿Seguro deseas eliminar el registro?", "Eliminar", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (resultado == DialogResult.OK)
+                {
+                    aux = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
+                    DiscoNegocio negocio = new DiscoNegocio();
+                    negocio.eliminar(aux.Id);
+                    cargarDatos();
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
     }
 }

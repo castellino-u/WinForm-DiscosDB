@@ -13,10 +13,21 @@ using negocio;
 namespace winform_app
 {
     public partial class frmAltaDisco : Form
+
     {
+        //esta variable en null es la que se usará como bandera al principio
+        private Disco disco = null;
         public frmAltaDisco()
         {
             InitializeComponent();
+            Text = "Agregar disco";
+        }
+
+        public frmAltaDisco(Disco seleccionado) {
+
+            InitializeComponent();
+            Text = "Modificar Disco";
+            disco = seleccionado;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -26,52 +37,76 @@ namespace winform_app
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Disco aux = new Disco();
+            
             DiscoNegocio negocio = new DiscoNegocio();
 
             //capturamos los datos y los mandamos a la base de datos
             try
             { 
-                aux.Artista = txtArtista.Text;
-                aux.Album = txtTitulo.Text;
-                aux.CantidadCanciones = (int)nudCantCanciones.Value;
-                aux.UrlImagenTapa = txtUrlImagenTapa.Text;
-                aux.Formato = (Edicion)cboFormato.SelectedItem;
-                aux.Genero = (Estilo)cboEstilo.SelectedItem;
-                aux.FechaLanzamiento = dtpFechaLanzamiento.Value;
+                if(disco == null) { Disco disco = new Disco();}
+                
+                disco.Artista = txtArtista.Text;
+                disco.Album = txtTitulo.Text;
+                disco.CantidadCanciones = (int)nudCantCanciones.Value;
+                disco.UrlImagenTapa = txtUrlImagenTapa.Text;
+                disco.Formato = (Edicion)cboFormato.SelectedItem;
+                disco.Genero = (Estilo)cboEstilo.SelectedItem;
+                disco.FechaLanzamiento = dtpFechaLanzamiento.Value;
 
-                negocio.agregar(aux);
-                MessageBox.Show("Agregado exitosamente");
+                if (disco.Id != 0)
+                {
+                    negocio.modificar(disco);
+                    MessageBox.Show("Modificado exitosamente");
+                }
+                else
+                {
+                    negocio.agregar(disco);
+                    MessageBox.Show("Agregado exitosamente");
+                }
                 this.Close();
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
-
-
-
         }
 
         private void frmAltaDisco_Load(object sender, EventArgs e)
         {
+                EstiloNegocio estiloNegocio = new EstiloNegocio();
+                EdicionNegocio edicionNegocio = new EdicionNegocio();
+                cargarImagen("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjA3GBpYTbg-_qo-aZPZBQhnAqxM-u2Mh3S9jesHtY4W_v8R8-JKo16JcEmpQGUMm_Wbk&usqp=CAU");
+
             try
             {
-                
-                EdicionNegocio edicionNegocio = new EdicionNegocio();
+                //rellenamos los combo box con las listas de estilo y negocio 
                 cboFormato.DataSource = edicionNegocio.listar();
+                //vamos a enlazar los datos en el comboBox para poder mostrar un dato preseleccionado
+                cboFormato.ValueMember = "Id";
+                cboFormato.DisplayMember = "Descripcion";
 
-
-                EstiloNegocio estiloNegocio = new EstiloNegocio();
                 cboEstilo.DataSource = estiloNegocio.listar();
+                cboEstilo.ValueMember = "Id";
+                cboEstilo.DisplayMember = "Descripcion";
 
-                cargarImagen("https://us.123rf.com/450wm/djvstock/djvstock1702/djvstock170212440/72504954-dise%C3%B1o-gr%C3%A1fico-del-ejemplo-aislado-del-vector-del-icono-de-la-m%C3%BAsica-del-vinilo.jpg?ver=6");
+                if (disco != null)
+                {
+                    btnAgregar.Text = "Guardar";
+                    //Acá vamos a tener que precargar todos los datos en las estructuras de control 
 
+                    txtArtista.Text = disco.Artista;
+                    txtTitulo.Text = disco.Album;
+                    txtUrlImagenTapa.Text = disco.UrlImagenTapa;
+                    nudCantCanciones.Value = disco.CantidadCanciones;
+                    dtpFechaLanzamiento.Value = disco.FechaLanzamiento;
+                    cargarImagen(disco.UrlImagenTapa);
+                    cboFormato.SelectedValue = disco.Formato.Id;
+                    cboEstilo.SelectedValue = disco.Genero.Id;
+
+                }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -87,6 +122,10 @@ namespace winform_app
                 pbAlbum.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
 
             }
+        }
+        private void txtUrlImagenTapa_Leave(object sender, EventArgs e)
+        {
+            cargarImagen(txtUrlImagenTapa.Text);
         }
     }
 }

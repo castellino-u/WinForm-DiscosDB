@@ -49,17 +49,38 @@ namespace negocio
                     aux.Id = (int)lector["Id"];
                     aux.Artista = (string)lector["Artista"];
                     aux.Album = (string)lector["Album"];
-                    aux.UrlImagenTapa = (string)lector["UrlImagenTapa"];
+
+                    if (!(lector["UrlImagenTapa"] is DBNull))
+                    {
+                        aux.UrlImagenTapa = (string)lector["UrlImagenTapa"];
+
+                    }
                     aux.CantidadCanciones = (int)lector["CantidadCanciones"];
                     //primero creo el objeto  vacio de la propertie de disco 
                     aux.Formato = new Edicion();
                     //luego lo relleno al objeto
-                    aux.Formato.Id = (int)lector["IdTipoEdicion"];
-                    aux.Formato.Descripcion = (string)lector["Edicion"];
+                    if (!(lector["IdTipoEdicion"] is DBNull))
+                    {
+                        aux.Formato.Id = (int)lector["IdTipoEdicion"];
 
+                    }
+                    if (!(lector["Edicion"] is DBNull))
+                    {
+                        aux.Formato.Descripcion = (string)lector["Edicion"];
+                    }
+                    
                     aux.Genero = new Estilo();
-                    aux.Genero.Id = (int)lector["IdEstilo"];
-                    aux.Genero.Descripcion = (string)lector["Genero"];
+
+                    if (!(lector["IdEstilo"] is DBNull))
+                    {
+                        aux.Genero.Id = (int)lector["IdEstilo"];
+
+                    }
+
+                    if (!(lector["Genero"] is DBNull))
+                    {
+                        aux.Genero.Descripcion = (string)lector["Genero"];
+                    }
 
                     aux.FechaLanzamiento = (DateTime)lector["FechaLanzamiento"];
 
@@ -111,7 +132,35 @@ namespace negocio
 
         }
 
+        public void modificar(Disco disc)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("update DISCOS set Titulo = @titulo, FechaLanzamiento = @fechalan, CantidadCanciones = @cantcanciones, UrlImagenTapa = @urlImg, IdEstilo = @idEstilo, IdTipoEdicion = @idTipoEdicion, Artista = @artista Where Id = @id;");
+                datos.setearParametros("@titulo", disc.Album);
+                datos.setearParametros("@fechalan", disc.FechaLanzamiento);
+                datos.setearParametros("@cantcanciones", disc.CantidadCanciones);
+                datos.setearParametros("@urlImg", disc.UrlImagenTapa);
+                datos.setearParametros("@idEstilo", disc.Genero.Id);
+                datos.setearParametros("@idTipoEdicion", disc.Formato.Id);
+                datos.setearParametros("@artista", disc.Artista);
+                datos.setearParametros("@id", disc.Id);
 
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally 
+            {
+                datos.cerrarConexion();
+            }
+
+        }
 
     }
 }

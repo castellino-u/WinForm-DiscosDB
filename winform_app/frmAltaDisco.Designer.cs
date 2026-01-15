@@ -188,6 +188,7 @@
             this.txtUrlImagenTapa.Name = "txtUrlImagenTapa";
             this.txtUrlImagenTapa.Size = new System.Drawing.Size(205, 20);
             this.txtUrlImagenTapa.TabIndex = 2;
+            this.txtUrlImagenTapa.Leave += new System.EventHandler(this.txtUrlImagenTapa_Leave);
             // 
             // pbAlbum
             // 

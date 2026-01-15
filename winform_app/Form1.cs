@@ -74,7 +74,7 @@ namespace winform_app
             //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
 
             dgvAlbum.DataSource = listaDisco;
-            dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
+            //dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
             //ocultamos las nuevas columnas
             dgvAlbum.Columns["CantidadCanciones"].Visible = false;
             dgvAlbum.Columns["Genero"].Visible = false;
@@ -85,6 +85,18 @@ namespace winform_app
             cargarImagen(listaDisco[0].UrlImagenTapa);
 
             
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Disco seleccionado = new Disco();
+            seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
+            frmAltaDisco modificar = new frmAltaDisco(seleccionado);
+            modificar.ShowDialog();
+
+
+            cargarDatos();
+
         }
     }
 }

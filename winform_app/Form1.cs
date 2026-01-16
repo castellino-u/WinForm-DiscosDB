@@ -82,7 +82,10 @@ namespace winform_app
 
             dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
 
-            cargarImagen(listaDisco[0].UrlImagenTapa);
+            if (listaDisco.Count > 0 )
+            {
+                cargarImagen(listaDisco[0].UrlImagenTapa);
+            }
 
             
         }
@@ -99,7 +102,17 @@ namespace winform_app
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+        private void btnEliminarLogico_Click_1(object sender, EventArgs e)
+        {
+            eliminar(true);
+        }
+
+        public void eliminar(bool logico = false)
         {
             Disco aux = new Disco();
             try
@@ -109,11 +122,18 @@ namespace winform_app
                 {
                     aux = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
                     DiscoNegocio negocio = new DiscoNegocio();
-                    negocio.eliminar(aux.Id);
+                    if (logico)
+                    {
+                        negocio.eliminarLogico(aux.Id);
+                    }
+                    else
+                    {
+                        negocio.eliminar(aux.Id);
+
+                    }
                     cargarDatos();
 
                 }
-
 
             }
             catch (Exception ex)
@@ -121,7 +141,6 @@ namespace winform_app
 
                 MessageBox.Show(ex.ToString());
             }
-
         }
     }
 }

@@ -8,6 +8,7 @@ namespace dominio
 {
     public class Disco
     {
+        public bool Estado { get; set; }
         public int Id { get; set; }
         public string Artista { get; set; }
 

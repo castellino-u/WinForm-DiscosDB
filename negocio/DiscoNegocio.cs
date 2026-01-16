@@ -35,7 +35,7 @@ namespace negocio
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; Database=DISCOS_DB; Integrated Security=true";
                 //Configuramos el comando, o sea configuramos la acción a realizar en la base de datos
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;\r\n\r\n";
+                comando.CommandText = "Select D.Activo, D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;\r\n\r\n";
                 //asignamos el comando a la conexión para que sepa a donde se tiene que conectar
                 comando.Connection = conexion;
                 //Lo siguiente es abrir la conexion
@@ -46,6 +46,7 @@ namespace negocio
                 while (lector.Read())
                 {
                     Disco aux = new Disco();
+                    aux.Estado = (bool)lector["Activo"];
                     aux.Id = (int)lector["Id"];
                     aux.Artista = (string)lector["Artista"];
                     aux.Album = (string)lector["Album"];
@@ -84,7 +85,11 @@ namespace negocio
 
                     aux.FechaLanzamiento = (DateTime)lector["FechaLanzamiento"];
 
-                    lista.Add(aux);
+                    if(aux.Estado)
+                    {
+                        lista.Add(aux);
+                    }
+
 
 
                 }
@@ -184,5 +189,29 @@ namespace negocio
             }
 
         }
+
+        public void eliminarLogico(int id )
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("update DISCOS set Activo = 0 where Id = @id;");
+
+                datos.setearParametros("@id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
     }
 }

@@ -22,7 +22,12 @@ namespace winform_app
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             cargarDatos();
+
+            cbxCampo.Items.Add("Artista");
+            cbxCampo.Items.Add("Cantidad de canciones");
+            //cbxCampo.Items.Add("");
 
 
         }
@@ -30,13 +35,16 @@ namespace winform_app
         //evento para que cambie de imagen seleccionando un album
         private void dgvAlbum_SelectionChanged(object sender, EventArgs e)
         {
-            Disco seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
-            //pbAlbum.Load(seleccionado.UrlImagenTapa);
-            cargarImagen(seleccionado.UrlImagenTapa);
-            //labels 
-            lblCantCanciones.Text = seleccionado.CantidadCanciones.ToString();
-            lblFormato.Text = seleccionado.Formato.Descripcion;
-            lblGenero.Text = seleccionado.Genero.Descripcion;
+            if(dgvAlbum.CurrentRow != null)
+            {
+                Disco seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
+                //pbAlbum.Load(seleccionado.UrlImagenTapa);
+                cargarImagen(seleccionado.UrlImagenTapa);
+                //labels 
+                lblCantCanciones.Text = seleccionado.CantidadCanciones.ToString();
+                lblFormato.Text = seleccionado.Formato.Descripcion;
+                lblGenero.Text = seleccionado.Genero.Descripcion;
+            }
         }
 
         //acá voy a hacer un método para seleccionar la imagen de manera separada, encapsulada  
@@ -72,15 +80,10 @@ namespace winform_app
             listaDisco = discoNegocio.listar();
 
             //Una vez hecho esto, sigue mandar esa lista a mi controlador de la interfaz
-
+            dgvAlbum.DataSource = null;
             dgvAlbum.DataSource = listaDisco;
-            //dgvAlbum.Columns["UrlImagenTapa"].Visible = false; //ocultamos la url que no queremos ver
-            //ocultamos las nuevas columnas
-            dgvAlbum.Columns["CantidadCanciones"].Visible = false;
-            dgvAlbum.Columns["Genero"].Visible = false;
-            dgvAlbum.Columns["Formato"].Visible = false;
-
-            dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
+            columnas();
+            
 
             if (listaDisco.Count > 0 )
             {
@@ -89,13 +92,28 @@ namespace winform_app
 
             
         }
+        public void columnas()
+        {
+            //ocultamos las nuevas columnas
+            dgvAlbum.Columns["CantidadCanciones"].Visible = false;
+            dgvAlbum.Columns["Genero"].Visible = false;
+            dgvAlbum.Columns["Formato"].Visible = false;
+            dgvAlbum.Columns["UrlImagenTapa"].Visible = false;
+            dgvAlbum.Columns["Estado"].Visible = false;
+
+            dgvAlbum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; //un poco de diseño
+        }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Disco seleccionado = new Disco();
-            seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
-            frmAltaDisco modificar = new frmAltaDisco(seleccionado);
-            modificar.ShowDialog();
+            if(dgvAlbum.CurrentRow != null)
+            {
+                Disco seleccionado = new Disco();
+                seleccionado = (Disco)dgvAlbum.CurrentRow.DataBoundItem;
+                frmAltaDisco modificar = new frmAltaDisco(seleccionado);
+                modificar.ShowDialog();
+
+            }
 
 
             cargarDatos();
@@ -141,6 +159,81 @@ namespace winform_app
 
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void txtfiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            List<Disco> listaFiltrada;
+            string filtro = txtfiltroRapido.Text;
+            int numero;
+
+            if (int.TryParse(filtro, out numero))
+            {
+
+
+                listaFiltrada = listaDisco.FindAll(x => x.Id == numero);
+
+            }
+            else if (filtro != "")
+            {
+                listaFiltrada = listaDisco.FindAll(x => x.Artista.ToUpper().Contains(filtro.ToUpper()));
+            }
+            else
+            {
+                listaFiltrada = listaDisco;
+            }
+
+            dgvAlbum.DataSource = null;
+            dgvAlbum.DataSource = listaFiltrada;
+            columnas();
+        }
+
+
+        private void btnFiltroAvanzado_Click(object sender, EventArgs e)
+        {
+            if (cbxCampo.SelectedItem == null || cboCriterio.SelectedItem == null )
+            {
+                MessageBox.Show("Por favor seleccione campo y criterio");
+                return;
+            }
+            string campo = cbxCampo.SelectedItem.ToString();
+            string criterio = cboCriterio.SelectedItem.ToString();
+            string filtro = txtFiltro.Text;
+
+            DiscoNegocio negocio = new DiscoNegocio();
+            dgvAlbum.DataSource = null;
+            dgvAlbum.DataSource = negocio.filtrar(campo, criterio, filtro);
+            columnas();
+        }
+
+       
+
+        private void cbxCampo_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            string campo = cbxCampo.SelectedItem.ToString(); ;
+            cboCriterio.Items.Clear();
+
+            if (campo == "Artista")
+            {
+                cboCriterio.Items.Add("Empieza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+
+            }
+            else
+            {
+
+
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+
+            }
+        }
+
+        private void btnRecargar_Click(object sender, EventArgs e)
+        {
+            cargarDatos();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace negocio
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; Database=DISCOS_DB; Integrated Security=true";
                 //Configuramos el comando, o sea configuramos la acción a realizar en la base de datos
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select D.Activo, D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id;\r\n\r\n";
+                comando.CommandText = "Select D.Activo, D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id AND Activo = 1;\r\n\r\n";
                 //asignamos el comando a la conexión para que sepa a donde se tiene que conectar
                 comando.Connection = conexion;
                 //Lo siguiente es abrir la conexion
@@ -85,10 +85,7 @@ namespace negocio
 
                     aux.FechaLanzamiento = (DateTime)lector["FechaLanzamiento"];
 
-                    if(aux.Estado)
-                    {
-                        lista.Add(aux);
-                    }
+                    lista.Add(aux);
 
 
 
@@ -212,6 +209,102 @@ namespace negocio
             }
         }
 
+        public List<Disco> filtrar(string campo, string criterio, string filtro)
+        {
+            List<Disco> lista = new List<Disco>();
+            string consulta = "Select D.Activo, D.FechaLanzamiento ,D.Id, D.IdEstilo, D.IdTipoEdicion , D.Titulo as Album, D.UrlImagenTapa, D.Artista, D.CantidadCanciones, E.Descripcion as Genero, T.Descripcion as Edicion  From DISCOS D, ESTILOS E, TIPOSEDICION T  WHERE D.IdEstilo = E.Id AND D.IdTipoEdicion = T.Id AND Activo = 1 AND  \r\n ";
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                if(campo == "Artista")
+                {
+                    if(criterio == "Empieza con")
+                    {
+                        consulta += " D.Artista like '"+filtro+"%'";
 
+                    }else if(criterio == "Termina con")
+                    {
+                        consulta += "D.Artista like '%"+filtro+"'";
+
+                    }else if(criterio == "Contiene")
+                    {
+                        consulta += "D.Artista like '%"+filtro+"%'";
+                    }
+                }
+                else if(campo == "Cantidad de canciones")
+                {
+                    if(criterio == "Mayor a")
+                    {
+                        consulta += "D.CantidadCanciones > " + filtro;
+
+                    }else if(criterio == "Menor a")
+                    {
+                        consulta += "D.CantidadCanciones < "+ filtro;
+                    }
+                    else
+                    {
+                        consulta += "D.CantidadCanciones = " + filtro;
+                    }
+                }
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Disco aux = new Disco();
+                    aux.Estado = (bool)datos.Lector["Activo"];
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Artista = (string)datos.Lector["Artista"];
+                    aux.Album = (string)datos.Lector["Album"];
+
+                    if (!(datos.Lector["UrlImagenTapa"] is DBNull))
+                    {
+                        aux.UrlImagenTapa = (string)datos.Lector["UrlImagenTapa"];
+
+                    }
+                    aux.CantidadCanciones = (int)datos.Lector["CantidadCanciones"];
+                    //primero creo el objeto  vacio de la propertie de disco 
+                    aux.Formato = new Edicion();
+                    //luego lo relleno al objeto
+                    if (!(datos.Lector["IdTipoEdicion"] is DBNull))
+                    {
+                        aux.Formato.Id = (int)datos.Lector["IdTipoEdicion"];
+
+                    }
+                    if (!(datos.Lector["Edicion"] is DBNull))
+                    {
+                        aux.Formato.Descripcion = (string)datos.Lector["Edicion"];
+                    }
+
+                    aux.Genero = new Estilo();
+
+                    if (!(datos.Lector["IdEstilo"] is DBNull))
+                    {
+                        aux.Genero.Id = (int)datos.Lector["IdEstilo"];
+
+                    }
+
+                    if (!(datos.Lector["Genero"] is DBNull))
+                    {
+                        aux.Genero.Descripcion = (string)datos.Lector["Genero"];
+                    }
+
+                    aux.FechaLanzamiento = (DateTime)datos.Lector["FechaLanzamiento"];
+
+                    lista.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
     }
 }

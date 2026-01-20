@@ -43,6 +43,16 @@ namespace winform_app
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEliminarLogico = new System.Windows.Forms.Button();
+            this.btnFiltroAvanzado = new System.Windows.Forms.Button();
+            this.txtfiltroRapido = new System.Windows.Forms.TextBox();
+            this.cbxCampo = new System.Windows.Forms.ComboBox();
+            this.cboCriterio = new System.Windows.Forms.ComboBox();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.lblCampo = new System.Windows.Forms.Label();
+            this.lblCriterio = new System.Windows.Forms.Label();
+            this.lblFiltro = new System.Windows.Forms.Label();
+            this.lblFiltroRapido = new System.Windows.Forms.Label();
+            this.btnRecargar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbum)).BeginInit();
             this.SuspendLayout();
@@ -50,7 +60,7 @@ namespace winform_app
             // pbAlbum
             // 
             this.pbAlbum.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbAlbum.Location = new System.Drawing.Point(156, 43);
+            this.pbAlbum.Location = new System.Drawing.Point(166, 93);
             this.pbAlbum.Name = "pbAlbum";
             this.pbAlbum.Size = new System.Drawing.Size(293, 234);
             this.pbAlbum.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -61,7 +71,7 @@ namespace winform_app
             // 
             this.dgvAlbum.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlbum.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvAlbum.Location = new System.Drawing.Point(156, 308);
+            this.dgvAlbum.Location = new System.Drawing.Point(166, 358);
             this.dgvAlbum.MultiSelect = false;
             this.dgvAlbum.Name = "dgvAlbum";
             this.dgvAlbum.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -72,7 +82,7 @@ namespace winform_app
             // lblGenero
             // 
             this.lblGenero.AutoSize = true;
-            this.lblGenero.Location = new System.Drawing.Point(657, 179);
+            this.lblGenero.Location = new System.Drawing.Point(667, 229);
             this.lblGenero.Name = "lblGenero";
             this.lblGenero.Size = new System.Drawing.Size(35, 13);
             this.lblGenero.TabIndex = 2;
@@ -81,7 +91,7 @@ namespace winform_app
             // lblCantCanciones
             // 
             this.lblCantCanciones.AutoSize = true;
-            this.lblCantCanciones.Location = new System.Drawing.Point(657, 103);
+            this.lblCantCanciones.Location = new System.Drawing.Point(667, 153);
             this.lblCantCanciones.Name = "lblCantCanciones";
             this.lblCantCanciones.Size = new System.Drawing.Size(35, 13);
             this.lblCantCanciones.TabIndex = 3;
@@ -90,7 +100,7 @@ namespace winform_app
             // lblFormato
             // 
             this.lblFormato.AutoSize = true;
-            this.lblFormato.Location = new System.Drawing.Point(657, 146);
+            this.lblFormato.Location = new System.Drawing.Point(667, 196);
             this.lblFormato.Name = "lblFormato";
             this.lblFormato.Size = new System.Drawing.Size(35, 13);
             this.lblFormato.TabIndex = 4;
@@ -99,7 +109,7 @@ namespace winform_app
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Location = new System.Drawing.Point(502, 58);
+            this.lblTitulo.Location = new System.Drawing.Point(512, 108);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(84, 13);
             this.lblTitulo.TabIndex = 5;
@@ -108,7 +118,7 @@ namespace winform_app
             // lblTituloGenero
             // 
             this.lblTituloGenero.AutoSize = true;
-            this.lblTituloGenero.Location = new System.Drawing.Point(577, 179);
+            this.lblTituloGenero.Location = new System.Drawing.Point(587, 229);
             this.lblTituloGenero.Name = "lblTituloGenero";
             this.lblTituloGenero.Size = new System.Drawing.Size(48, 13);
             this.lblTituloGenero.TabIndex = 6;
@@ -117,7 +127,7 @@ namespace winform_app
             // lblTituloCantCanciones
             // 
             this.lblTituloCantCanciones.AutoSize = true;
-            this.lblTituloCantCanciones.Location = new System.Drawing.Point(502, 103);
+            this.lblTituloCantCanciones.Location = new System.Drawing.Point(512, 153);
             this.lblTituloCantCanciones.Name = "lblTituloCantCanciones";
             this.lblTituloCantCanciones.Size = new System.Drawing.Size(123, 13);
             this.lblTituloCantCanciones.TabIndex = 7;
@@ -126,7 +136,7 @@ namespace winform_app
             // lblTituloFormato
             // 
             this.lblTituloFormato.AutoSize = true;
-            this.lblTituloFormato.Location = new System.Drawing.Point(574, 146);
+            this.lblTituloFormato.Location = new System.Drawing.Point(584, 196);
             this.lblTituloFormato.Name = "lblTituloFormato";
             this.lblTituloFormato.Size = new System.Drawing.Size(51, 13);
             this.lblTituloFormato.TabIndex = 8;
@@ -134,7 +144,7 @@ namespace winform_app
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(760, 308);
+            this.btnAgregar.Location = new System.Drawing.Point(770, 358);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(117, 41);
             this.btnAgregar.TabIndex = 9;
@@ -144,7 +154,7 @@ namespace winform_app
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(760, 355);
+            this.btnModificar.Location = new System.Drawing.Point(770, 405);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(117, 41);
             this.btnModificar.TabIndex = 10;
@@ -154,7 +164,7 @@ namespace winform_app
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(760, 402);
+            this.btnEliminar.Location = new System.Drawing.Point(770, 452);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(117, 41);
             this.btnEliminar.TabIndex = 11;
@@ -164,7 +174,7 @@ namespace winform_app
             // 
             // btnEliminarLogico
             // 
-            this.btnEliminarLogico.Location = new System.Drawing.Point(760, 449);
+            this.btnEliminarLogico.Location = new System.Drawing.Point(770, 499);
             this.btnEliminarLogico.Name = "btnEliminarLogico";
             this.btnEliminarLogico.Size = new System.Drawing.Size(117, 41);
             this.btnEliminarLogico.TabIndex = 12;
@@ -172,11 +182,111 @@ namespace winform_app
             this.btnEliminarLogico.UseVisualStyleBackColor = true;
             this.btnEliminarLogico.Click += new System.EventHandler(this.btnEliminarLogico_Click_1);
             // 
+            // btnFiltroAvanzado
+            // 
+            this.btnFiltroAvanzado.Location = new System.Drawing.Point(707, 572);
+            this.btnFiltroAvanzado.Name = "btnFiltroAvanzado";
+            this.btnFiltroAvanzado.Size = new System.Drawing.Size(90, 20);
+            this.btnFiltroAvanzado.TabIndex = 13;
+            this.btnFiltroAvanzado.Text = "Buscar";
+            this.btnFiltroAvanzado.UseVisualStyleBackColor = true;
+            this.btnFiltroAvanzado.Click += new System.EventHandler(this.btnFiltroAvanzado_Click);
+            // 
+            // txtfiltroRapido
+            // 
+            this.txtfiltroRapido.Location = new System.Drawing.Point(166, 46);
+            this.txtfiltroRapido.Name = "txtfiltroRapido";
+            this.txtfiltroRapido.Size = new System.Drawing.Size(293, 20);
+            this.txtfiltroRapido.TabIndex = 14;
+            this.txtfiltroRapido.TextChanged += new System.EventHandler(this.txtfiltroRapido_TextChanged);
+            // 
+            // cbxCampo
+            // 
+            this.cbxCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCampo.FormattingEnabled = true;
+            this.cbxCampo.Location = new System.Drawing.Point(158, 572);
+            this.cbxCampo.Name = "cbxCampo";
+            this.cbxCampo.Size = new System.Drawing.Size(145, 21);
+            this.cbxCampo.TabIndex = 15;
+            this.cbxCampo.SelectedIndexChanged += new System.EventHandler(this.cbxCampo_SelectedIndexChanged_1);
+            // 
+            // cboCriterio
+            // 
+            this.cboCriterio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCriterio.FormattingEnabled = true;
+            this.cboCriterio.Location = new System.Drawing.Point(357, 573);
+            this.cboCriterio.Name = "cboCriterio";
+            this.cboCriterio.Size = new System.Drawing.Size(121, 21);
+            this.cboCriterio.TabIndex = 16;
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Location = new System.Drawing.Point(563, 574);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.Size = new System.Drawing.Size(100, 20);
+            this.txtFiltro.TabIndex = 17;
+            // 
+            // lblCampo
+            // 
+            this.lblCampo.AutoSize = true;
+            this.lblCampo.Location = new System.Drawing.Point(111, 576);
+            this.lblCampo.Name = "lblCampo";
+            this.lblCampo.Size = new System.Drawing.Size(43, 13);
+            this.lblCampo.TabIndex = 18;
+            this.lblCampo.Text = "Campo:";
+            // 
+            // lblCriterio
+            // 
+            this.lblCriterio.AutoSize = true;
+            this.lblCriterio.Location = new System.Drawing.Point(309, 577);
+            this.lblCriterio.Name = "lblCriterio";
+            this.lblCriterio.Size = new System.Drawing.Size(42, 13);
+            this.lblCriterio.TabIndex = 19;
+            this.lblCriterio.Text = "Criterio:";
+            // 
+            // lblFiltro
+            // 
+            this.lblFiltro.AutoSize = true;
+            this.lblFiltro.Location = new System.Drawing.Point(512, 577);
+            this.lblFiltro.Name = "lblFiltro";
+            this.lblFiltro.Size = new System.Drawing.Size(32, 13);
+            this.lblFiltro.TabIndex = 20;
+            this.lblFiltro.Text = "Filtro:";
+            // 
+            // lblFiltroRapido
+            // 
+            this.lblFiltroRapido.AutoSize = true;
+            this.lblFiltroRapido.Location = new System.Drawing.Point(111, 53);
+            this.lblFiltroRapido.Name = "lblFiltroRapido";
+            this.lblFiltroRapido.Size = new System.Drawing.Size(55, 13);
+            this.lblFiltroRapido.TabIndex = 21;
+            this.lblFiltroRapido.Text = "Buscador:";
+            // 
+            // btnRecargar
+            // 
+            this.btnRecargar.Location = new System.Drawing.Point(770, 311);
+            this.btnRecargar.Name = "btnRecargar";
+            this.btnRecargar.Size = new System.Drawing.Size(117, 41);
+            this.btnRecargar.TabIndex = 22;
+            this.btnRecargar.Text = "Recargar";
+            this.btnRecargar.UseVisualStyleBackColor = true;
+            this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 548);
+            this.ClientSize = new System.Drawing.Size(1044, 641);
+            this.Controls.Add(this.btnRecargar);
+            this.Controls.Add(this.lblFiltroRapido);
+            this.Controls.Add(this.lblFiltro);
+            this.Controls.Add(this.lblCriterio);
+            this.Controls.Add(this.lblCampo);
+            this.Controls.Add(this.txtFiltro);
+            this.Controls.Add(this.cboCriterio);
+            this.Controls.Add(this.cbxCampo);
+            this.Controls.Add(this.txtfiltroRapido);
+            this.Controls.Add(this.btnFiltroAvanzado);
             this.Controls.Add(this.btnEliminarLogico);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
@@ -216,6 +326,16 @@ namespace winform_app
         private Button btnModificar;
         private Button btnEliminar;
         private Button btnEliminarLogico;
+        private Button btnFiltroAvanzado;
+        private TextBox txtfiltroRapido;
+        private ComboBox cbxCampo;
+        private ComboBox cboCriterio;
+        private TextBox txtFiltro;
+        private Label lblCampo;
+        private Label lblCriterio;
+        private Label lblFiltro;
+        private Label lblFiltroRapido;
+        private Button btnRecargar;
     }
 }
 

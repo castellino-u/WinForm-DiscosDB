@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
 using negocio;
+using System.Configuration;
 
 namespace winform_app
 {
@@ -17,6 +19,7 @@ namespace winform_app
     {
         //esta variable en null es la que se usará como bandera al principio
         private Disco disco = null;
+        OpenFileDialog archivo;
         public frmAltaDisco()
         {
             InitializeComponent();
@@ -70,6 +73,11 @@ namespace winform_app
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+
+            if((archivo != null) && !(txtUrlImagenTapa.Text.ToLower().Contains("https")))
+            {
+                File.Copy(archivo.FileName, ConfigurationManager.AppSettings["discos-app"] + archivo.SafeFileName);
             }
         }
 
@@ -128,6 +136,20 @@ namespace winform_app
         private void txtUrlImagenTapa_Leave(object sender, EventArgs e)
         {
             cargarImagen(txtUrlImagenTapa.Text);
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg;|png|*.png";
+            
+            if(archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtUrlImagenTapa.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
+                //implementamos ahora el guardado de la copia de una imagen local 
+            }
+
         }
     }
 }

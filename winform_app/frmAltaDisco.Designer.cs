@@ -45,6 +45,7 @@
             this.cboFormato = new System.Windows.Forms.ComboBox();
             this.txtUrlImagenTapa = new System.Windows.Forms.TextBox();
             this.pbAlbum = new System.Windows.Forms.PictureBox();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantCanciones)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbum)).BeginInit();
             this.SuspendLayout();
@@ -199,11 +200,22 @@
             this.pbAlbum.TabIndex = 16;
             this.pbAlbum.TabStop = false;
             // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Location = new System.Drawing.Point(402, 131);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(26, 24);
+            this.btnAgregarImagen.TabIndex = 17;
+            this.btnAgregarImagen.Text = "+";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
             // frmAltaDisco
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 519);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.pbAlbum);
             this.Controls.Add(this.txtUrlImagenTapa);
             this.Controls.Add(this.cboFormato);
@@ -251,5 +263,6 @@
         private System.Windows.Forms.ComboBox cboFormato;
         private System.Windows.Forms.TextBox txtUrlImagenTapa;
         private System.Windows.Forms.PictureBox pbAlbum;
+        private System.Windows.Forms.Button btnAgregarImagen;
     }
 }
